@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Kiji Yurei - Cosplayer 🎭</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b3d 25%, #4a1b3d 50%, #6b1b3d 75%, #8b1b3d 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Efectos de partículas flotantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff0000, #800080);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-150px) rotate(180deg); opacity: 1; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header con efecto de cristal oscuro */
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            margin-bottom: 50px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 6s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff0000, #800080, #4a1b3d, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease infinite;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-text {
+            font-size: 1.3rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff0000, #800080);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Sección Sobre Mí */
+        .about-section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            text-align: left;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: #ff0000;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        /* Galería de cosplays */
+        .gallery-section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .cosplay-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            max-width: 100%;
+        }
+
+        /* Mejorar la visualización en pantallas grandes */
+        @media (min-width: 1200px) {
+            .cosplay-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .cosplay-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 18px;
+            }
+        }
+
+        /* Vista de lista para móviles */
+        @media (max-width: 768px) {
+            .cosplay-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Carrusel horizontal */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 25px;
+        }
+
+        .carousel-card {
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 2rem;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(255, 0, 0, 0.6);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
+        }
+
+        /* Controles de vista */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .view-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .view-btn.active {
+            background: rgba(255, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .view-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Sistema de búsqueda */
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 300px;
+            max-width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: rgba(255, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cosplay-counter {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Efectos adicionales para las tarjetas */
+        .cosplay-card::before {
+            content: '👁️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .cosplay-card:hover::before {
+            opacity: 1;
+        }
+
+        .cosplay-card::after {
+            content: attr(data-photo-count);
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .cosplay-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Overlay de imagen con efecto de cámara */
+        .cosplay-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .cosplay-card:hover .cosplay-image-overlay {
+            opacity: 1;
+        }
+
+        .cosplay-image-overlay::before {
+            content: '📷';
+            font-size: 3rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animación de carga para las imágenes */
+        .cosplay-image {
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.4s ease;
+        }
+
+        .cosplay-image.loaded {
+            opacity: 1;
+        }
+
+        /* Indicador de carga */
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+        }
+
+        .cosplay-card {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .cosplay-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.3);
+            border-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .cosplay-image-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .cosplay-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .photo-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 3;
+            border: 2px solid rgba(255, 0, 0, 0.5);
+        }
+
+        .cosplay-card:hover .cosplay-image {
+            transform: scale(1.1);
+        }
+
+        .cosplay-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .cosplay-title {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cosplay-description {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Modal para vista ampliada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-content:hover {
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 2.5rem;
+            padding: 20px 25px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 1002;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-nav:hover {
+            background: rgba(255, 0, 0, 0.6);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .modal-nav.prev {
+            left: 30px;
+        }
+
+        .modal-nav.next {
+            right: 30px;
+        }
+
+        .modal-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 12px 25px;
+            border-radius: 25px;
+            z-index: 1002;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #ff0000;
+        }
+
+        /* Sección de redes sociales */
+        .social-section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .social-card {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .social-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .social-text {
+            color: #e0e0e0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            margin-top: 50px;
+        }
+
+        .footer-text {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .footer-hearts {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cosplay-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Efectos de scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Partículas flotantes -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header principal -->
+        <header>
+            <h1 class="main-title" id="mainTitle">🎭 Kiji Yurei 🎭</h1>
+            <p class="subtitle" id="subtitle">Cosplayer Amateur</p>
+            <p class="welcome-text" id="welcomeText">
+                ¡Hola! Soy Kiji Yurei, cosplayer amateur en crecimiento. Bienvenid@ a mi rincón lleno de transformaciones, trajes y mucho amor por el anime. Me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.
+            </p>
+            <a href="#gallery" class="cta-button">Ver Galería</a>
+        </header>
+
+        <!-- Sección Sobre Mí -->
+        <section class="about-section fade-in">
+            <h2 class="section-title">✨ Sobre Mí</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Mi Historia</h3>
+                    <p id="storyText">Tengo 19 años y empecé mi viaje en el cosplay hace 2 años. Como fan del anime, me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.</p>
+                    <p>Me gusta interpretar todo tipo de personajes, desde héroes hasta villanos, siempre buscando capturar la esencia de cada uno.</p>
+                    <p>Mi pasión por el cosplay nació de mi amor por el anime y el deseo de convertirme en esos personajes que tanto admiro.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="ageNumber">19</div>
+                        <div class="stat-label">Años</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="experienceNumber">2</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Pasión</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería de cosplays -->
+        <section id="gallery" class="gallery-section fade-in">
+            <h2 class="section-title">🎭 Mis Cosplays</h2>
+            
+            <!-- Búsqueda -->
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar cosplays..." onkeyup="filterCosplays()">
+                <button id="clearSearch" class="view-btn" onclick="clearSearch()" style="margin-left: 10px; display: none;">❌ Limpiar</button>
+            </div>
+            
+            <!-- Controles de vista -->
+            <div class="view-controls">
+                <button class="view-btn active" onclick="changeView('grid')">📱 Vista Cuadrícula</button>
+                <button class="view-btn" onclick="changeView('carousel')">🔄 Vista Carrusel</button>
+            </div>
+            
+            <!-- Vista de cuadrícula -->
+            <div class="cosplay-grid" id="gridView">
+                <!-- Los cosplays se cargarán dinámicamente -->
+            </div>
+            
+            <!-- Vista de carrusel -->
+            <div class="carousel-container" id="carouselView" style="display: none;">
+                <button class="carousel-nav prev" onclick="moveCarousel(-1)">‹</button>
+                <button class="carousel-nav next" onclick="moveCarousel(1)">›</button>
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Los cosplays se cargarán dinámicamente -->
+                </div>
+            </div>
+            
+            <!-- Contador de cosplays -->
+            <div class="cosplay-counter" id="cosplayCounter">
+                <span id="cosplayCount">0</span> cosplays mostrados
+            </div>
+        </section>
+
+        <!-- Sección de redes sociales -->
+        <section class="social-section fade-in">
+            <h2 class="section-title">📱 Sígueme</h2>
+            <div class="social-grid" id="socialGrid">
+                <!-- Las redes sociales se cargarán dinámicamente -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="fade-in">
+            <p class="footer-text">🌟 Gracias por visitar mi página de cosplay 🌟</p>
+            <div class="footer-hearts">💖 💕 💗</div>
+            <p class="footer-text">¡Sígueme para más contenido creativo!</p>
+        </footer>
+    </div>
+
+    <!-- Modal para vista ampliada -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <button class="modal-nav prev" onclick="previousImage()">‹</button>
+        <button class="modal-nav next" onclick="nextImage()">›</button>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-counter" id="modalCounter"></div>
+    </div>
+
+    <script>
+        // Crear partículas flotantes
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Efectos de scroll
+        function handleScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Variables globales para el modal
+        let currentCosplayImages = [];
+        let currentImageIndex = 0;
+        let pageData = null; // Variable global para los datos de la página
+
+        // Modal para imágenes
+        function openModal(cosplayId) {
+            const cosplay = pageData.cosplays.find(c => c.id === cosplayId);
+            if (cosplay && cosplay.images.length > 0) {
+                currentCosplayImages = cosplay.images;
+                currentImageIndex = 0;
+                
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const modalCounter = document.getElementById('modalCounter');
+                
+                modal.style.display = 'block';
+                modalImg.src = currentCosplayImages[currentImageIndex];
+                updateModalCounter();
+                
+                // Mostrar botones de navegación solo si hay más de una imagen
+                const prevBtn = document.querySelector('.modal-nav.prev');
+                const nextBtn = document.querySelector('.modal-nav.next');
+                
+                if (currentCosplayImages.length > 1) {
+                    prevBtn.style.display = 'block';
+                    nextBtn.style.display = 'block';
+                } else {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+                
+                // Efecto de confeti al abrir modal
+                createConfetti();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            currentCosplayImages = [];
+            currentImageIndex = 0;
+        }
+
+        function previousImage() {
+            if (currentCosplayImages.length > 1) {
+                currentImageIndex = (currentImageIndex - 1 + currentCosplayImages.length) % currentCosplayImages.length;
+                document.getElementById('modalImage').src = currentCosplayImages[currentImageIndex];
+                updateModalCounter();
+            }
+        }
+
+        function nextImage() {
+            if (currentCosplayImages.length > 1) {
+                currentImageIndex = (currentImageIndex + 1) % currentCosplayImages.length;
+                document.getElementById('modalImage').src = currentCosplayImages[currentImageIndex];
+                updateModalCounter();
+            }
+        }
+
+        function updateModalCounter() {
+            const modalCounter = document.getElementById('modalCounter');
+            modalCounter.textContent = `${currentImageIndex + 1} / ${currentCosplayImages.length}`;
+            modalCounter.style.display = 'block';
+        }
+
+        // Variables para el carrusel
+        let currentCarouselIndex = 0;
+
+        // Cambiar vista entre cuadrícula y carrusel
+        function changeView(viewType) {
+            const gridView = document.getElementById('gridView');
+            const carouselView = document.getElementById('carouselView');
+            const buttons = document.querySelectorAll('.view-btn');
+            
+            // Actualizar botones
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (viewType === 'grid') {
+                gridView.style.display = 'grid';
+                carouselView.style.display = 'none';
+            } else {
+                gridView.style.display = 'none';
+                carouselView.style.display = 'block';
+                updateCarousel();
+            }
+        }
+
+        // Mover carrusel
+        function moveCarousel(direction) {
+            const carouselCards = document.querySelectorAll('.carousel-card');
+            const carouselTrack = document.getElementById('carouselTrack');
+            const cardWidth = 325; // 300px + 25px gap
+            const maxIndex = carouselCards.length - 1;
+            
+            currentCarouselIndex += direction;
+            
+            if (currentCarouselIndex < 0) {
+                currentCarouselIndex = maxIndex;
+            } else if (currentCarouselIndex > maxIndex) {
+                currentCarouselIndex = 0;
+            }
+            
+            const translateX = -currentCarouselIndex * cardWidth;
+            carouselTrack.style.transform = `translateX(${translateX}px)`;
+        }
+
+        // Actualizar carrusel
+        function updateCarousel() {
+            currentCarouselIndex = 0;
+            const carouselTrack = document.getElementById('carouselTrack');
+            carouselTrack.style.transform = 'translateX(0)';
+        }
+
+        // Filtrar cosplays por búsqueda
+        function filterCosplays() {
+            // Limpiar timeout anterior si existe
+            if (window.searchTimeout) {
+                clearTimeout(window.searchTimeout);
+            }
+            
+            // Aplicar filtro con delay para mejor rendimiento
+            window.searchTimeout = setTimeout(() => {
+                const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+                const clearButton = document.getElementById('clearSearch');
+                
+                // Mostrar/ocultar botón de limpiar
+                if (searchTerm) {
+                    clearButton.style.display = 'inline-block';
+                } else {
+                    clearButton.style.display = 'none';
+                }
+                
+                const gridCards = document.querySelectorAll('#gridView .cosplay-card');
+                const carouselCards = document.querySelectorAll('#carouselView .carousel-card');
+                let visibleCount = 0;
+                
+                // Filtrar tarjetas de cuadrícula
+                gridCards.forEach(card => {
+                    const title = card.querySelector('.cosplay-title').textContent.toLowerCase();
+                    const description = card.querySelector('.cosplay-description').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Filtrar tarjetas de carrusel
+                carouselCards.forEach(card => {
+                    const title = card.querySelector('.cosplay-title').textContent.toLowerCase();
+                    const description = card.querySelector('.cosplay-description').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Actualizar contador
+                updateCosplayCounter(visibleCount);
+                
+                // Mostrar mensaje si no hay resultados
+                if (searchTerm && visibleCount === 0) {
+                    const noResultsMessage = `
+                        <div style="text-align: center; padding: 50px; color: rgba(255, 255, 255, 0.7);">
+                            <div style="font-size: 3rem; margin-bottom: 20px;">🔍</div>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 15px;">No se encontraron cosplays</h3>
+                            <p style="font-size: 1.1rem;">Intenta con otros términos de búsqueda</p>
+                        </div>
+                    `;
+                    
+                    // Mostrar mensaje en la vista activa
+                    const activeView = document.getElementById('gridView').style.display !== 'none' ? 'gridView' : 'carouselView';
+                    document.getElementById(activeView).innerHTML = noResultsMessage;
+                } else if (!searchTerm) {
+                    // Si no hay término de búsqueda, recargar los cosplays
+                    loadPageData();
+                }
+            }, 300);
+        }
+
+        // Actualizar contador de cosplays
+        function updateCosplayCounter(count) {
+            const counterElement = document.getElementById('cosplayCount');
+            counterElement.textContent = count;
+        }
+
+        // Manejar errores de carga de imágenes
+        function handleImageError(img) {
+            img.style.display = 'none';
+            const container = img.parentElement;
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'loading-indicator';
+            errorDiv.textContent = '❌ Error al cargar imagen';
+            errorDiv.style.color = 'rgba(255, 0, 0, 0.7)';
+            container.appendChild(errorDiv);
+        }
+
+        // Limpiar búsqueda
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('clearSearch').style.display = 'none';
+            loadPageData();
+        }
+
+        // Efecto de confeti
+        function createConfetti() {
+            for (let i = 0; i < 25; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.fontSize = '20px';
+                confetti.style.pointerEvents = 'none';
+                confetti.style.zIndex = '1000';
+                
+                const emojis = ['✨', '🌟', '💫', '🎭', '🎨', '💖', '⭐', '🌙', '🔥', '💀'];
+                confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: 3000 + Math.random() * 2000,
+                    easing: 'ease-out'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // Efectos interactivos
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('cosplay-card') || 
+                e.target.classList.contains('social-card') ||
+                e.target.classList.contains('cta-button')) {
+                createConfetti();
+            }
+        });
+
+        // Cerrar modal con ESC y navegación con flechas
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowLeft') {
+                previousImage();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+
+        // Cargar datos del panel de administración
+        function loadPageData() {
+            const saved = localStorage.getItem('kijiPageData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                
+                // Migrar datos del formato anterior si es necesario
+                if (data.cosplays) {
+                    data.cosplays.forEach(cosplay => {
+                        if (cosplay.image && !cosplay.images) {
+                            cosplay.images = [cosplay.image];
+                            delete cosplay.image;
+                        }
+                    });
+                }
+                
+                // Asignar a variable global
+                pageData = data;
+                
+                // Actualizar información personal
+                document.getElementById('mainTitle').textContent = `🎭 ${data.personal.name} 🎭`;
+                document.getElementById('welcomeText').textContent = data.personal.description;
+                document.getElementById('storyText').textContent = data.personal.story;
+                document.getElementById('ageNumber').textContent = data.personal.age;
+                document.getElementById('experienceNumber').textContent = data.personal.experience;
+                
+                // Renderizar cosplays
+                renderCosplays(data.cosplays);
+                
+                // Renderizar redes sociales
+                renderSocialLinks(data.social);
+            } else {
+                // Si no hay datos guardados, crear datos de ejemplo con las imágenes proporcionadas
+                createExampleData();
+            }
+        }
+
+        // Crear datos de ejemplo con las imágenes proporcionadas
+        function createExampleData() {
+            const exampleData = {
+                personal: {
+                    name: "Kiji Yurei",
+                    description: "¡Hola! Soy Kiji Yurei, cosplayer amateur en crecimiento. Bienvenid@ a mi rincón lleno de transformaciones, trajes y mucho amor por el anime. Me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.",
+                    story: "Tengo 19 años y empecé mi viaje en el cosplay hace 2 años. Como fan del anime, me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.",
+                    age: "19",
+                    experience: "2"
+                },
+                cosplays: [
+                    {
+                        id: 1,
+                        title: "Cosplay Mágico",
+                        description: "Un cosplay lleno de magia y creatividad que transporta a mundos fantásticos.",
+                        images: [
+                            "img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_14317d81.jpg",
+                            "img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_1a399e2e.jpg",
+                            "img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_5738f298.jpg"
+                        ]
+                    }
+                ],
+                social: {
+                    instagram: "https://instagram.com/kiji_yurei",
+                    tiktok: "https://tiktok.com/@kiji_yurei",
+                    whatsapp: "https://wa.me/1234567890",
+                    support: "https://ko-fi.com/kiji_yurei"
+                }
+            };
+            
+            // Guardar datos de ejemplo
+            localStorage.setItem('kijiPageData', JSON.stringify(exampleData));
+            
+            // Asignar a variable global
+            pageData = exampleData;
+            
+            // Renderizar contenido
+            renderCosplays(exampleData.cosplays);
+            renderSocialLinks(exampleData.social);
+        }
+
+        // Renderizar cosplays dinámicamente
+        function renderCosplays(cosplays) {
+            const gridView = document.getElementById('gridView');
+            const carouselTrack = document.getElementById('carouselTrack');
+            
+            // Limpiar contenido existente
+            gridView.innerHTML = '';
+            carouselTrack.innerHTML = '';
+            
+            cosplays.forEach(cosplay => {
+                // Crear tarjeta para la vista de cuadrícula
+                const gridCard = document.createElement('div');
+                gridCard.className = 'cosplay-card';
+                gridCard.onclick = () => openModal(cosplay.id);
+                gridCard.setAttribute('data-photo-count', `${cosplay.images ? cosplay.images.length : 1} foto${cosplay.images && cosplay.images.length !== 1 ? 's' : ''}`);
+                
+                // Crear tarjeta para el carrusel
+                const carouselCard = document.createElement('div');
+                carouselCard.className = 'cosplay-card carousel-card';
+                carouselCard.onclick = () => openModal(cosplay.id);
+                carouselCard.setAttribute('data-photo-count', `${cosplay.images ? cosplay.images.length : 1} foto${cosplay.images && cosplay.images.length !== 1 ? 's' : ''}`);
+                
+                // Usar la primera imagen como vista previa
+                const previewImage = cosplay.images && cosplay.images.length > 0 ? cosplay.images[0] : '';
+                
+                const cardHTML = `
+                    <div class="cosplay-image-container">
+                        <div class="loading-indicator">🔄</div>
+                        <img src="${previewImage}" alt="${cosplay.title}" class="cosplay-image" onload="this.classList.add('loaded'); this.parentElement.querySelector('.loading-indicator').style.display='none';" onerror="handleImageError(this)">
+                        <div class="cosplay-image-overlay"></div>
+                        ${cosplay.images && cosplay.images.length > 1 ? 
+                            `<div class="photo-counter">1/${cosplay.images.length}</div>` : 
+                            ''
+                        }
+                    </div>
+                    <div class="cosplay-info">
+                        <h3 class="cosplay-title">${cosplay.title}</h3>
+                        <p class="cosplay-description">${cosplay.description}</p>
+                    </div>
+                `;
+                
+                gridCard.innerHTML = cardHTML;
+                carouselCard.innerHTML = cardHTML;
+                
+                gridView.appendChild(gridCard);
+                carouselTrack.appendChild(carouselCard);
+            });
+            
+            // Actualizar contador inicial
+            updateCosplayCounter(cosplays.length);
+            
+            // Mostrar mensaje si no hay cosplays
+            if (cosplays.length === 0) {
+                const noCosplaysMessage = `
+                    <div style="text-align: center; padding: 50px; color: rgba(255, 255, 255, 0.7);">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">🎭</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">No hay cosplays disponibles</h3>
+                        <p style="font-size: 1.1rem;">¡Pronto agregaremos más cosplays increíbles!</p>
+                    </div>
+                `;
+                gridView.innerHTML = noCosplaysMessage;
+                carouselTrack.innerHTML = noCosplaysMessage;
+            }
+        }
+
+        // Renderizar redes sociales dinámicamente
+        function renderSocialLinks(social) {
+            const grid = document.getElementById('socialGrid');
+            grid.innerHTML = '';
+            
+            const socialLinks = [
+                { icon: '📸', title: 'Instagram', url: social.instagram, text: 'Fotos y behind the scenes' },
+                { icon: '🎭', title: 'TikTok', url: social.tiktok, text: 'Videos y transformaciones' },
+                { icon: '📱', title: 'WhatsApp', url: social.whatsapp, text: 'Contacto directo' },
+                { icon: '💝', title: 'Apóyame', url: social.support, text: 'Ayúdame a seguir creando' }
+            ];
+            
+            socialLinks.forEach(link => {
+                const card = document.createElement('div');
+                card.className = 'social-card';
+                
+                if (link.url) {
+                    card.onclick = () => window.open(link.url, '_blank');
+                    card.style.cursor = 'pointer';
+                }
+                
+                card.innerHTML = `
+                    <div class="social-icon">${link.icon}</div>
+                    <h3 class="social-title">${link.title}</h3>
+                    <p class="social-text">${link.text}</p>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Inicializar
+        window.addEventListener('load', () => {
+            createParticles();
+            handleScroll();
+            loadPageData();
+        });
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Efecto de escritura para el título
+        const mainTitle = document.querySelector('.main-title');
+        const originalText = mainTitle.textContent;
+        mainTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                mainTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 120);
+            }
+        };
+
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
+</html> 

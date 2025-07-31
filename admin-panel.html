@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Panel de Administración - Kiji Yurei</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b3d 25%, #4a1b3d 50%, #6b1b3d 75%, #8b1b3d 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header del panel */
+        .admin-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .admin-title {
+            font-size: 3rem;
+            color: #ff0000;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .admin-subtitle {
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        /* Contenedor principal */
+        .admin-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Secciones del panel */
+        .admin-section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #ff0000;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Formularios */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Galería de cosplays */
+        .cosplay-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .cosplay-item {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .cosplay-preview {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .cosplay-images-preview {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .cosplay-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        .cosplay-thumbnail:hover {
+            border-color: rgba(255, 0, 0, 0.6);
+            transform: scale(1.05);
+        }
+
+        .cosplay-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Botones */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff0000, #800080);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        /* Área de subida de archivos */
+        .upload-area {
+            border: 2px dashed rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(255, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .upload-area.dragover {
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Redes sociales */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Acciones principales */
+        .main-actions {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Mensajes de estado */
+        .status-message {
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status-success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .status-error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-title {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Scrollbar personalizado */
+        .cosplay-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .cosplay-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .cosplay-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 0, 0, 0.5);
+            border-radius: 4px;
+        }
+
+        .cosplay-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header del panel -->
+        <header class="admin-header">
+            <h1 class="admin-title">🎭 Panel de Administración</h1>
+            <p class="admin-subtitle">Kiji Yurei - Gestiona tu página de cosplay</p>
+        </header>
+
+        <!-- Contenido principal -->
+        <div class="admin-content">
+            <!-- Información Personal -->
+            <section class="admin-section">
+                <h2 class="section-title">👤 Información Personal</h2>
+                <form id="personalInfoForm">
+                    <div class="form-group">
+                        <label class="form-label">Nombre Artístico</label>
+                        <input type="text" class="form-input" id="artistName" value="Kiji Yurei">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Edad</label>
+                        <input type="number" class="form-input" id="age" value="19">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Años de Experiencia</label>
+                        <input type="number" class="form-input" id="experience" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Descripción Personal</label>
+                        <textarea class="form-textarea" id="personalDescription" rows="4">¡Hola! Soy Kiji Yurei, cosplayer amateur en crecimiento. Bienvenid@ a mi rincón lleno de transformaciones, trajes y mucho amor por el anime. Me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Historia</label>
+                        <textarea class="form-textarea" id="story" rows="4">Tengo 19 años y empecé mi viaje en el cosplay hace 2 años. Como fan del anime, me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Guardar Información</button>
+                </form>
+            </section>
+
+            <!-- Redes Sociales -->
+            <section class="admin-section">
+                <h2 class="section-title">📱 Redes Sociales</h2>
+                <form id="socialForm">
+                    <div class="social-grid">
+                        <div class="form-group">
+                            <label class="form-label">Instagram</label>
+                            <input type="url" class="form-input" id="instagram" placeholder="https://instagram.com/tu-usuario">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">TikTok</label>
+                            <input type="url" class="form-input" id="tiktok" placeholder="https://tiktok.com/@tu-usuario">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">WhatsApp</label>
+                            <input type="text" class="form-input" id="whatsapp" placeholder="+58 123 456 7890">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Link de Apoyo</label>
+                            <input type="url" class="form-input" id="support" placeholder="https://ko-fi.com/tu-usuario">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Guardar Redes</button>
+                </form>
+            </section>
+
+            <!-- Galería de Cosplays -->
+            <section class="admin-section">
+                <h2 class="section-title">📸 Galería de Cosplays</h2>
+                <div class="cosplay-list" id="cosplayList">
+                    <!-- Los cosplays se cargarán dinámicamente -->
+                </div>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p>Arrastra una imagen aquí o haz clic para seleccionar</p>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+            </section>
+
+            <!-- Agregar Nuevo Cosplay -->
+            <section class="admin-section">
+                <h2 class="section-title">➕ Agregar Cosplay</h2>
+                <form id="newCosplayForm">
+                    <div class="form-group">
+                        <label class="form-label">Título del Cosplay</label>
+                        <input type="text" class="form-input" id="cosplayTitle" placeholder="Ej: Cosplay Mágico">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-textarea" id="cosplayDescription" placeholder="Describe tu cosplay..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">URLs de las Imágenes (una por línea)</label>
+                        <textarea class="form-textarea" id="cosplayImages" placeholder="https://ejemplo.com/imagen1.jpg&#10;https://ejemplo.com/imagen2.jpg&#10;https://ejemplo.com/imagen3.jpg" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">➕ Agregar Cosplay</button>
+                </form>
+            </section>
+        </div>
+
+        <!-- Acciones principales -->
+        <section class="main-actions">
+            <h2 class="section-title">🎯 Acciones Principales</h2>
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-large" onclick="saveAllData()">💾 Guardar Todo</button>
+                <button class="btn btn-secondary btn-large" onclick="previewChanges()">👁️ Vista Previa</button>
+                <button class="btn btn-secondary btn-large" onclick="exportData()">📤 Exportar Datos</button>
+                <button class="btn btn-secondary btn-large" onclick="importData()">📥 Importar Datos</button>
+                <a href="kiji-yurei-cosplay.html" class="btn btn-secondary btn-large" target="_blank">🌐 Ver Página Pública</a>
+            </div>
+        </section>
+
+        <!-- Mensajes de estado -->
+        <div id="statusMessage"></div>
+    </div>
+
+    <script>
+        // Datos por defecto
+        let pageData = {
+            personal: {
+                name: "Kiji Yurei",
+                age: 19,
+                experience: 2,
+                description: "¡Hola! Soy Kiji Yurei, cosplayer amateur en crecimiento. Bienvenid@ a mi rincón lleno de transformaciones, trajes y mucho amor por el anime. Me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo.",
+                story: "Tengo 19 años y empecé mi viaje en el cosplay hace 2 años. Como fan del anime, me encanta traer a la vida personajes que me gustan, haciendo lo que puedo con lo que tengo."
+            },
+            social: {
+                instagram: "",
+                tiktok: "",
+                whatsapp: "",
+                support: ""
+            },
+            cosplays: [
+                {
+                    id: 1,
+                    title: "Cosplay Mágico",
+                    description: "Un cosplay lleno de magia y creatividad que transporta a mundos fantásticos.",
+                    images: ["img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_14317d81.jpg"]
+                },
+                {
+                    id: 2,
+                    title: "Cosplay Épico",
+                    description: "Una interpretación épica que captura la esencia de personajes legendarios.",
+                    images: ["img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_1a399e2e.jpg"]
+                },
+                {
+                    id: 3,
+                    title: "Cosplay Creativo",
+                    description: "Creatividad sin límites en cada detalle y expresión artística.",
+                    images: ["img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_5738f298.jpg"]
+                }
+            ]
+        };
+
+        // Cargar datos guardados
+        function loadSavedData() {
+            const saved = localStorage.getItem('kijiPageData');
+            if (saved) {
+                pageData = JSON.parse(saved);
+                
+                // Migrar datos del formato anterior si es necesario
+                if (pageData.cosplays) {
+                    pageData.cosplays.forEach(cosplay => {
+                        if (cosplay.image && !cosplay.images) {
+                            cosplay.images = [cosplay.image];
+                            delete cosplay.image;
+                        }
+                    });
+                    // Guardar los datos migrados
+                    saveData();
+                }
+            }
+            populateForms();
+            renderCosplayList();
+        }
+
+        // Llenar formularios con datos
+        function populateForms() {
+            // Información personal
+            document.getElementById('artistName').value = pageData.personal.name;
+            document.getElementById('age').value = pageData.personal.age;
+            document.getElementById('experience').value = pageData.personal.experience;
+            document.getElementById('personalDescription').value = pageData.personal.description;
+            document.getElementById('story').value = pageData.personal.story;
+
+            // Redes sociales
+            document.getElementById('instagram').value = pageData.social.instagram;
+            document.getElementById('tiktok').value = pageData.social.tiktok;
+            document.getElementById('whatsapp').value = pageData.social.whatsapp;
+            document.getElementById('support').value = pageData.social.support;
+        }
+
+        // Renderizar lista de cosplays
+        function renderCosplayList() {
+            const container = document.getElementById('cosplayList');
+            container.innerHTML = '';
+
+            pageData.cosplays.forEach(cosplay => {
+                const item = document.createElement('div');
+                item.className = 'cosplay-item';
+                
+                // Crear vista previa de múltiples imágenes
+                const imagesPreview = cosplay.images.map(img => 
+                    `<img src="${img}" alt="${cosplay.title}" class="cosplay-thumbnail">`
+                ).join('');
+                
+                item.innerHTML = `
+                    <img src="${cosplay.images[0]}" alt="${cosplay.title}" class="cosplay-preview">
+                    <h4>${cosplay.title}</h4>
+                    <p>${cosplay.description}</p>
+                    <div class="cosplay-images-preview">
+                        ${imagesPreview}
+                    </div>
+                    <p><strong>${cosplay.images.length} foto${cosplay.images.length !== 1 ? 's' : ''}</strong></p>
+                    <div class="cosplay-actions">
+                        <button class="btn btn-secondary" onclick="editCosplay(${cosplay.id})">✏️ Editar</button>
+                        <button class="btn btn-danger" onclick="deleteCosplay(${cosplay.id})">🗑️ Eliminar</button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Guardar información personal
+        document.getElementById('personalInfoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            pageData.personal = {
+                name: document.getElementById('artistName').value,
+                age: parseInt(document.getElementById('age').value),
+                experience: parseInt(document.getElementById('experience').value),
+                description: document.getElementById('personalDescription').value,
+                story: document.getElementById('story').value
+            };
+            saveData();
+            showStatus('Información personal guardada exitosamente!', 'success');
+        });
+
+        // Guardar redes sociales
+        document.getElementById('socialForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            pageData.social = {
+                instagram: document.getElementById('instagram').value,
+                tiktok: document.getElementById('tiktok').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                support: document.getElementById('support').value
+            };
+            saveData();
+            showStatus('Redes sociales guardadas exitosamente!', 'success');
+        });
+
+        // Agregar nuevo cosplay
+        document.getElementById('newCosplayForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Procesar múltiples URLs de imágenes
+            const imagesText = document.getElementById('cosplayImages').value;
+            const images = imagesText.split('\n')
+                .map(url => url.trim())
+                .filter(url => url.length > 0);
+            
+            const newCosplay = {
+                id: Date.now(),
+                title: document.getElementById('cosplayTitle').value,
+                description: document.getElementById('cosplayDescription').value,
+                images: images
+            };
+            
+            pageData.cosplays.push(newCosplay);
+            saveData();
+            renderCosplayList();
+            this.reset();
+            showStatus('Cosplay agregado exitosamente!', 'success');
+        });
+
+        // Subida de archivos
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0]);
+            }
+        });
+
+        function handleFileUpload(file) {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Aquí podrías subir la imagen a un servidor
+                    // Por ahora, usamos la URL local
+                    showStatus('Imagen cargada: ' + file.name, 'success');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showStatus('Por favor selecciona una imagen válida', 'error');
+            }
+        }
+
+        // Editar cosplay
+        function editCosplay(id) {
+            const cosplay = pageData.cosplays.find(c => c.id === id);
+            if (cosplay) {
+                document.getElementById('cosplayTitle').value = cosplay.title;
+                document.getElementById('cosplayDescription').value = cosplay.description;
+                document.getElementById('cosplayImages').value = cosplay.images.join('\n');
+                
+                // Cambiar el formulario para editar
+                const form = document.getElementById('newCosplayForm');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.textContent = '💾 Actualizar Cosplay';
+                submitBtn.onclick = function(e) {
+                    e.preventDefault();
+                    
+                    // Procesar múltiples URLs de imágenes
+                    const imagesText = document.getElementById('cosplayImages').value;
+                    const images = imagesText.split('\n')
+                        .map(url => url.trim())
+                        .filter(url => url.length > 0);
+                    
+                    cosplay.title = document.getElementById('cosplayTitle').value;
+                    cosplay.description = document.getElementById('cosplayDescription').value;
+                    cosplay.images = images;
+                    
+                    saveData();
+                    renderCosplayList();
+                    form.reset();
+                    submitBtn.textContent = '➕ Agregar Cosplay';
+                    showStatus('Cosplay actualizado exitosamente!', 'success');
+                };
+            }
+        }
+
+        // Eliminar cosplay
+        function deleteCosplay(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este cosplay?')) {
+                pageData.cosplays = pageData.cosplays.filter(c => c.id !== id);
+                saveData();
+                renderCosplayList();
+                showStatus('Cosplay eliminado exitosamente!', 'success');
+            }
+        }
+
+        // Guardar datos
+        function saveData() {
+            localStorage.setItem('kijiPageData', JSON.stringify(pageData));
+        }
+
+        // Guardar todo
+        function saveAllData() {
+            saveData();
+            showStatus('Todos los datos guardados exitosamente!', 'success');
+        }
+
+        // Vista previa
+        function previewChanges() {
+            saveData();
+            window.open('kiji-yurei-cosplay.html', '_blank');
+        }
+
+        // Exportar datos
+        function exportData() {
+            const dataStr = JSON.stringify(pageData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'kiji-page-data.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            showStatus('Datos exportados exitosamente!', 'success');
+        }
+
+        // Importar datos
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        pageData = JSON.parse(e.target.result);
+                        populateForms();
+                        renderCosplayList();
+                        saveData();
+                        showStatus('Datos importados exitosamente!', 'success');
+                    } catch (error) {
+                        showStatus('Error al importar datos', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // Mostrar mensajes de estado
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.textContent = message;
+            
+            setTimeout(() => {
+                statusDiv.textContent = '';
+                statusDiv.className = '';
+            }, 3000);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedData();
+        });
+    </script>
+</body>
+</html> 

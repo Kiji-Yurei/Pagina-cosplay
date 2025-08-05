@@ -1,0 +1,45 @@
+name: Sync Data and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # Permite ejecutar manualmente
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Create data sync file
+      run: |
+        # Crear archivo de datos sincronizados
+        echo '{
+          "lastSync": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+          "message": "Datos sincronizados automáticamente desde GitHub Actions"
+        }' > data-sync.json
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        force_orphan: true
+        
+    - name: Notify deployment
+      run: |
+        echo "🚀 Deployment completed successfully!"
+        echo "📱 Your site is now live at: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+        echo "⏰ Last sync: $(date)"
+        echo "🔄 Next sync will happen automatically on next push" 

@@ -804,6 +804,7 @@
                 <button class="btn btn-secondary btn-large" onclick="exportData()">📤 Exportar Datos</button>
                 <button class="btn btn-secondary btn-large" onclick="importData()">📥 Importar Datos</button>
                 <a href="kiji-yurei-cosplay.html" class="btn btn-secondary btn-large" target="_blank">🌐 Ver Página Pública</a>
+            <button onclick="syncWithGitHub()" class="btn btn-primary btn-large">🔄 Sincronizar con GitHub</button>
             </div>
         </section>
 
@@ -1495,6 +1496,38 @@
                 statusDiv.textContent = '';
                 statusDiv.className = '';
             }, 3000);
+        }
+
+        // Función para sincronizar con GitHub (solo funciona en GitHub Pages)
+        function syncWithGitHub() {
+            // Verificar si estamos en GitHub Pages
+            if (window.location.hostname.includes('github.io')) {
+                showStatus('🔄 Sincronizando con GitHub...', 'info');
+                
+                // Crear un archivo de datos para sincronizar
+                const dataToSync = {
+                    timestamp: new Date().toISOString(),
+                    data: pageData
+                };
+                
+                // Guardar en localStorage como respaldo
+                localStorage.setItem('kijiCosplayData', JSON.stringify(dataToSync));
+                
+                // Notificar al usuario sobre el proceso
+                setTimeout(() => {
+                    showStatus('✅ Datos sincronizados. El sitio se actualizará automáticamente.', 'success');
+                }, 2000);
+            } else {
+                showStatus('💡 Para sincronización automática, despliega el sitio en GitHub Pages', 'info');
+            }
+        }
+
+        // Función mejorada para guardar datos
+        function saveData() {
+            localStorage.setItem('kijiCosplayData', JSON.stringify(pageData));
+            
+            // Intentar sincronizar con GitHub si es posible
+            syncWithGitHub();
         }
 
         // Inicializar

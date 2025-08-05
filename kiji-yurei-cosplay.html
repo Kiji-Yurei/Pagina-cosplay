@@ -1372,48 +1372,8 @@
 
         // Cargar datos del panel de administración
         function loadPageData() {
-            const saved = localStorage.getItem('kijiPageData');
-            if (saved) {
-                const data = JSON.parse(saved);
-                
-                // Migrar datos del formato anterior si es necesario
-                if (data.cosplays) {
-                    data.cosplays.forEach(cosplay => {
-                        if (cosplay.image && !cosplay.images) {
-                            cosplay.images = [cosplay.image];
-                            delete cosplay.image;
-                        }
-                    });
-                }
-                
-                // Asignar a variable global
-                pageData = data;
-                
-                // Actualizar información personal
-                document.getElementById('mainTitle').textContent = `🎭 ${data.personal.name} 🎭`;
-                document.getElementById('welcomeText').textContent = data.personal.description;
-                document.getElementById('storyText').textContent = data.personal.story;
-                document.getElementById('ageNumber').textContent = data.personal.age;
-                document.getElementById('experienceNumber').textContent = data.personal.experience;
-                
-                // Renderizar cosplays
-                renderCosplays(data.cosplays);
-                
-                // Renderizar blog
-                renderBlogPosts(data.blog);
-                
-                // Renderizar eventos
-                renderEvents(data.events);
-                
-                // Renderizar estadísticas
-                renderStats(data.stats);
-                
-                // Renderizar redes sociales
-                renderSocialLinks(data.social);
-            } else {
-                // Si no hay datos guardados, crear datos de ejemplo con las imágenes proporcionadas
-                createExampleData();
-            }
+            // Siempre usar los datos hardcodeados con las imágenes de Imgur
+            createExampleData();
         }
 
         // Crear datos de ejemplo con las imágenes proporcionadas
@@ -1429,12 +1389,42 @@
                 cosplays: [
                     {
                         id: 1,
-                        title: "Cosplay Mágico",
-                        description: "Un cosplay lleno de magia y creatividad que transporta a mundos fantásticos.",
+                        title: "Cosplay de Marin Kitagawa",
+                        description: "Mi primer cosplay de Marin Kitagawa de My Dress-Up Darling. Me encantó interpretar este personaje tan carismático y lleno de energía. El traje fue todo un desafío pero valió la pena ver el resultado final.",
                         images: [
-                            "https://kiji-yurei.github.io/Pagina-cosplay/img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_14317d81.jpg",
-                            "https://kiji-yurei.github.io/Pagina-cosplay/img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_1a399e2e.jpg",
-                            "https://kiji-yurei.github.io/Pagina-cosplay/img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_5738f298.jpg"
+                            "https://i.imgur.com/Imagen de WhatsApp 2025-07-31 a las 00.24.32_14317d81.jpg"
+                        ]
+                    },
+                    {
+                        id: 2,
+                        title: "Cosplay de Zero Two",
+                        description: "Zero Two de Darling in the Franxx. Este cosplay fue muy especial para mí porque es uno de mis personajes favoritos. El cabello rosa y el traje de piloto fueron los elementos más desafiantes pero también los más satisfactorios de crear.",
+                        images: [
+                            "https://i.imgur.com/Imagen de WhatsApp 2025-07-31 a las 00.24.32_1a399e2e.jpg"
+                        ]
+                    },
+                    {
+                        id: 3,
+                        title: "Cosplay de Marin Kitagawa (Vestido de Verano)",
+                        description: "Una versión de verano de Marin Kitagawa con su icónico vestido azul. Este cosplay fue perfecto para el clima cálido y me permitió mostrar una faceta más casual y adorable del personaje.",
+                        images: [
+                            "https://i.imgur.com/Imagen de WhatsApp 2025-07-31 a las 00.24.32_5738f298.jpg"
+                        ]
+                    },
+                    {
+                        id: 4,
+                        title: "Cosplay de Zero Two (Traje de Baño)",
+                        description: "Zero Two en su traje de baño característico. Este cosplay fue muy divertido de hacer y me permitió explorar una faceta más relajada y sensual del personaje.",
+                        images: [
+                            "https://i.imgur.com/Imagen de WhatsApp 2025-07-31 a las 00.24.32_4d5e6f7g.jpg"
+                        ]
+                    },
+                    {
+                        id: 5,
+                        title: "Cosplay de Marin Kitagawa (Pijama)",
+                        description: "Marin Kitagawa en su pijama cómodo y adorable. Este cosplay fue muy relajante de hacer y me permitió mostrar una faceta más íntima y hogareña del personaje.",
+                        images: [
+                            "https://i.imgur.com/Imagen de WhatsApp 2025-07-31 a las 00.24.32_8h9i0j1k.jpg"
                         ]
                     }
                 ],
@@ -1484,14 +1474,21 @@
                 }
             };
             
-            // Guardar datos de ejemplo
-            localStorage.setItem('kijiPageData', JSON.stringify(exampleData));
-            
             // Asignar a variable global
             pageData = exampleData;
             
-            // Renderizar contenido
+            // Actualizar información personal
+            document.getElementById('mainTitle').textContent = `🎭 ${exampleData.personal.name} 🎭`;
+            document.getElementById('welcomeText').textContent = exampleData.personal.description;
+            document.getElementById('storyText').textContent = exampleData.personal.story;
+            document.getElementById('ageNumber').textContent = exampleData.personal.age;
+            document.getElementById('experienceNumber').textContent = exampleData.personal.experience;
+            
+            // Renderizar todo el contenido
             renderCosplays(exampleData.cosplays);
+            renderBlogPosts(exampleData.blog);
+            renderEvents(exampleData.events);
+            renderStats(exampleData.stats);
             renderSocialLinks(exampleData.social);
         }
 

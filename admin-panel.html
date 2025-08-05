@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎭 Panel de Administración - Kiji Yurei</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -303,6 +304,216 @@
         .cosplay-list::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 0, 0, 0.7);
         }
+
+        /* Nueva sección de subida rápida */
+        .quick-upload-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .upload-preview-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .upload-preview-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        .upload-form {
+            flex-grow: 1;
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Responsive para la subida rápida */
+        @media (max-width: 768px) {
+            .upload-preview-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .upload-preview-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
+        /* Nueva sección de subida rápida */
+        .quick-upload-section {
+            grid-column: 1 / -1; /* Ocupa toda la columna */
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .upload-preview-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .upload-preview-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .upload-form {
+            flex-grow: 1;
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Estilos para las nuevas secciones */
+        .blog-list, .events-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .blog-item, .event-item {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .blog-item h4, .event-item h4 {
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .blog-item p, .event-item p {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .blog-date, .event-date {
+            color: #ff0000;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .blog-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .blog-tag {
+            background: rgba(255, 0, 0, 0.3);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+        }
+
+        /* Nueva sección de gestión de imágenes */
+        .info-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .info-card h3 {
+            color: #ff0000;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .option-card h4 {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .option-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .option-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .option-card ul li {
+            color: #e0e0e0;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .option-card ul li:before {
+            content: "•";
+            color: #ff0000;
+            margin-right: 5px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .service-item h4 {
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .service-item p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -375,10 +586,36 @@
                 <div class="cosplay-list" id="cosplayList">
                     <!-- Los cosplays se cargarán dinámicamente -->
                 </div>
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-icon">📁</div>
-                    <p>Arrastra una imagen aquí o haz clic para seleccionar</p>
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                
+                <!-- Área de subida rápida -->
+                <div class="quick-upload-section">
+                    <h3 style="color: #ff0000; margin-bottom: 15px;">⚡ Subida Rápida</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p>Arrastra una imagen aquí o haz clic para seleccionar</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <!-- Vista previa y formulario de descripción -->
+                    <div id="uploadPreview" style="display: none;">
+                        <div class="upload-preview-container">
+                            <img id="previewImage" class="upload-preview-img" alt="Vista previa">
+                            <div class="upload-form">
+                                <div class="form-group">
+                                    <label class="form-label">Título del Cosplay</label>
+                                    <input type="text" class="form-input" id="quickTitle" placeholder="Ej: Cosplay Mágico">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Descripción</label>
+                                    <textarea class="form-textarea" id="quickDescription" placeholder="Describe tu cosplay... (Ctrl+Enter para guardar)" rows="3"></textarea>
+                                </div>
+                                <div class="upload-actions">
+                                    <button class="btn btn-primary" onclick="saveQuickUpload()">💾 Guardar Cosplay</button>
+                                    <button class="btn btn-secondary" onclick="cancelQuickUpload()">❌ Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -399,6 +636,161 @@
                         <textarea class="form-textarea" id="cosplayImages" placeholder="https://ejemplo.com/imagen1.jpg&#10;https://ejemplo.com/imagen2.jpg&#10;https://ejemplo.com/imagen3.jpg" rows="4"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">➕ Agregar Cosplay</button>
+                </form>
+            </section>
+
+            <!-- Gestión de Imágenes -->
+            <section id="imageManagement">
+                <h2 class="section-title">🖼️ Gestión de Imágenes</h2>
+                
+                <div class="info-card">
+                    <h3>📋 Opciones para subir nuevas fotos:</h3>
+                    <div class="option-grid">
+                        <div class="option-card">
+                            <h4>🎯 Subida Rápida (Local)</h4>
+                            <p>Para pruebas y desarrollo local. Las imágenes se guardan en tu navegador.</p>
+                            <ul>
+                                <li>✅ Funciona offline</li>
+                                <li>✅ Fácil de usar</li>
+                                <li>❌ Solo visible en tu navegador</li>
+                                <li>❌ No funciona en hosting público</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="option-card">
+                            <h4>🌐 URLs Externas</h4>
+                            <p>Para hosting público. Sube tus fotos a servicios externos y usa las URLs.</p>
+                            <ul>
+                                <li>✅ Funciona en cualquier hosting</li>
+                                <li>✅ Visible para todos</li>
+                                <li>✅ No ocupa espacio en localStorage</li>
+                                <li>❌ Requiere subir fotos a otro servicio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>📤 Servicios recomendados para subir fotos:</h3>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <h4>🖼️ Imgur</h4>
+                            <p>Gratis, sin registro para fotos individuales</p>
+                            <a href="https://imgur.com" target="_blank" class="btn btn-secondary">Ir a Imgur</a>
+                        </div>
+                        
+                        <div class="service-item">
+                            <h4>☁️ Google Drive</h4>
+                            <p>Comparte carpetas y usa enlaces directos</p>
+                            <a href="https://drive.google.com" target="_blank" class="btn btn-secondary">Ir a Drive</a>
+                        </div>
+                        
+                        <div class="service-item">
+                            <h4>📷 Instagram</h4>
+                            <p>Sube y copia enlaces de tus posts</p>
+                            <a href="https://instagram.com" target="_blank" class="btn btn-secondary">Ir a Instagram</a>
+                        </div>
+                        
+                        <div class="service-item">
+                            <h4>🐙 GitHub</h4>
+                            <p>Sube fotos directamente a tu repositorio</p>
+                            <a href="https://github.com" target="_blank" class="btn btn-secondary">Ir a GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🔄 Migrar fotos existentes:</h3>
+                    <p>Si tienes fotos guardadas en localStorage y quieres hacerlas públicas:</p>
+                    <ol>
+                        <li>Descarga las fotos desde el panel de administración</li>
+                        <li>Sube las fotos a uno de los servicios recomendados</li>
+                        <li>Reemplaza las URLs en la sección "Agregar Cosplay"</li>
+                        <li>Guarda los cambios</li>
+                    </ol>
+                    <button class="btn btn-primary" onclick="exportLocalImages()">📥 Exportar Fotos Locales</button>
+                </div>
+            </section>
+
+            <!-- Gestión de Blog -->
+            <section class="admin-section">
+                <h2 class="section-title">📝 Gestión de Blog</h2>
+                <div class="blog-list" id="blogList">
+                    <!-- Las publicaciones se cargarán dinámicamente -->
+                </div>
+                
+                <form id="newBlogForm" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Título de la Publicación</label>
+                        <input type="text" class="form-input" id="blogTitle" placeholder="Ej: Mi Primer Cosplay Completo">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="form-input" id="blogDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Resumen</label>
+                        <textarea class="form-textarea" id="blogExcerpt" placeholder="Resumen de la publicación..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Etiquetas (separadas por comas)</label>
+                        <input type="text" class="form-input" id="blogTags" placeholder="Cosplay, Tutorial, Experiencia">
+                    </div>
+                    <button type="submit" class="btn btn-primary">📝 Agregar Publicación</button>
+                </form>
+            </section>
+
+            <!-- Gestión de Eventos -->
+            <section class="admin-section">
+                <h2 class="section-title">🎪 Gestión de Eventos</h2>
+                <div class="events-list" id="eventsList">
+                    <!-- Los eventos se cargarán dinámicamente -->
+                </div>
+                
+                <form id="newEventForm" style="margin-top: 20px;">
+                    <div class="form-group">
+                        <label class="form-label">Título del Evento</label>
+                        <input type="text" class="form-input" id="eventTitle" placeholder="Ej: Convención Anime Local">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" class="form-input" id="eventDate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-textarea" id="eventDescription" placeholder="Describe el evento..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ubicación</label>
+                        <input type="text" class="form-input" id="eventLocation" placeholder="Ej: Centro de Convenciones, Ciudad">
+                    </div>
+                    <button type="submit" class="btn btn-primary">🎪 Agregar Evento</button>
+                </form>
+            </section>
+
+            <!-- Gestión de Estadísticas -->
+            <section class="admin-section">
+                <h2 class="section-title">📊 Gestión de Estadísticas</h2>
+                <form id="statsForm">
+                    <div class="social-grid">
+                        <div class="form-group">
+                            <label class="form-label">Total de Cosplays</label>
+                            <input type="number" class="form-input" id="statsCosplays" value="15">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Seguidores</label>
+                            <input type="number" class="form-input" id="statsFollowers" value="2500">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Eventos Participados</label>
+                            <input type="number" class="form-input" id="statsEvents" value="8">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Años de Experiencia</label>
+                            <input type="number" class="form-input" id="statsExperience" value="2">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Guardar Estadísticas</button>
                 </form>
             </section>
         </div>
@@ -454,7 +846,45 @@
                     description: "Creatividad sin límites en cada detalle y expresión artística.",
                     images: ["https://kiji-yurei.github.io/Pagina-cosplay/img/Imagen de WhatsApp 2025-07-31 a las 00.24.32_5738f298.jpg"]
                 }
-            ]
+            ],
+            blog: [
+                {
+                    id: 1,
+                    date: "2024-01-15",
+                    title: "Mi Primer Cosplay Completo",
+                    excerpt: "Comparto mi experiencia creando mi primer cosplay desde cero, los desafíos y las alegrías del proceso...",
+                    tags: ["Primer Cosplay", "Experiencia", "Tutorial"]
+                },
+                {
+                    id: 2,
+                    date: "2024-01-10",
+                    title: "Consejos para Principiantes",
+                    excerpt: "Algunos consejos útiles que he aprendido en mi viaje como cosplayer amateur...",
+                    tags: ["Consejos", "Principiantes", "Guía"]
+                }
+            ],
+            events: [
+                {
+                    id: 1,
+                    date: "2024-02-15",
+                    title: "Convención Anime Local",
+                    description: "Participaré en la convención local de anime con mi nuevo cosplay. ¡Ven a saludarme!",
+                    location: "Centro de Convenciones, Ciudad"
+                },
+                {
+                    id: 2,
+                    date: "2024-03-20",
+                    title: "Concurso de Cosplay",
+                    description: "Mi primera participación en un concurso oficial de cosplay. ¡Deseenme suerte!",
+                    location: "Teatro Municipal"
+                }
+            ],
+            stats: {
+                cosplays: 15,
+                followers: 2500,
+                events: 8,
+                experience: 2
+            }
         };
 
         // Cargar datos guardados
@@ -477,6 +907,8 @@
             }
             populateForms();
             renderCosplayList();
+            renderBlogList();
+            renderEventsList();
         }
 
         // Llenar formularios con datos
@@ -493,6 +925,12 @@
             document.getElementById('tiktok').value = pageData.social.tiktok;
             document.getElementById('whatsapp').value = pageData.social.whatsapp;
             document.getElementById('support').value = pageData.social.support;
+
+            // Estadísticas
+            document.getElementById('statsCosplays').value = pageData.stats.cosplays;
+            document.getElementById('statsFollowers').value = pageData.stats.followers;
+            document.getElementById('statsEvents').value = pageData.stats.events;
+            document.getElementById('statsExperience').value = pageData.stats.experience;
         }
 
         // Renderizar lista de cosplays
@@ -520,6 +958,58 @@
                     <div class="cosplay-actions">
                         <button class="btn btn-secondary" onclick="editCosplay(${cosplay.id})">✏️ Editar</button>
                         <button class="btn btn-danger" onclick="deleteCosplay(${cosplay.id})">🗑️ Eliminar</button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Renderizar lista de blog
+        function renderBlogList() {
+            const container = document.getElementById('blogList');
+            container.innerHTML = '';
+
+            if (!pageData.blog) pageData.blog = [];
+
+            pageData.blog.forEach(post => {
+                const item = document.createElement('div');
+                item.className = 'blog-item';
+                
+                const tagsHTML = post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('');
+                
+                item.innerHTML = `
+                    <h4>${post.title}</h4>
+                    <div class="blog-date">${new Date(post.date).toLocaleDateString('es-ES')}</div>
+                    <p>${post.excerpt}</p>
+                    <div class="blog-tags">${tagsHTML}</div>
+                    <div class="cosplay-actions">
+                        <button class="btn btn-secondary" onclick="editBlogPost(${post.id})">✏️ Editar</button>
+                        <button class="btn btn-danger" onclick="deleteBlogPost(${post.id})">🗑️ Eliminar</button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Renderizar lista de eventos
+        function renderEventsList() {
+            const container = document.getElementById('eventsList');
+            container.innerHTML = '';
+
+            if (!pageData.events) pageData.events = [];
+
+            pageData.events.forEach(event => {
+                const item = document.createElement('div');
+                item.className = 'event-item';
+                
+                item.innerHTML = `
+                    <h4>${event.title}</h4>
+                    <div class="event-date">${new Date(event.date).toLocaleDateString('es-ES')}</div>
+                    <p>${event.description}</p>
+                    <p><strong>📍 ${event.location}</strong></p>
+                    <div class="cosplay-actions">
+                        <button class="btn btn-secondary" onclick="editEvent(${event.id})">✏️ Editar</button>
+                        <button class="btn btn-danger" onclick="deleteEvent(${event.id})">🗑️ Eliminar</button>
                     </div>
                 `;
                 container.appendChild(item);
@@ -577,9 +1067,73 @@
             showStatus('Cosplay agregado exitosamente!', 'success');
         });
 
+        // Agregar nueva publicación de blog
+        document.getElementById('newBlogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const tags = document.getElementById('blogTags').value
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag.length > 0);
+            
+            const newPost = {
+                id: Date.now(),
+                date: document.getElementById('blogDate').value,
+                title: document.getElementById('blogTitle').value,
+                excerpt: document.getElementById('blogExcerpt').value,
+                tags: tags
+            };
+            
+            if (!pageData.blog) pageData.blog = [];
+            pageData.blog.push(newPost);
+            saveData();
+            renderBlogList();
+            this.reset();
+            showStatus('Publicación de blog agregada exitosamente!', 'success');
+        });
+
+        // Agregar nuevo evento
+        document.getElementById('newEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newEvent = {
+                id: Date.now(),
+                date: document.getElementById('eventDate').value,
+                title: document.getElementById('eventTitle').value,
+                description: document.getElementById('eventDescription').value,
+                location: document.getElementById('eventLocation').value
+            };
+            
+            if (!pageData.events) pageData.events = [];
+            pageData.events.push(newEvent);
+            saveData();
+            renderEventsList();
+            this.reset();
+            showStatus('Evento agregado exitosamente!', 'success');
+        });
+
+        // Guardar estadísticas
+        document.getElementById('statsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            pageData.stats = {
+                cosplays: parseInt(document.getElementById('statsCosplays').value),
+                followers: parseInt(document.getElementById('statsFollowers').value),
+                events: parseInt(document.getElementById('statsEvents').value),
+                experience: parseInt(document.getElementById('statsExperience').value)
+            };
+            
+            saveData();
+            showStatus('Estadísticas guardadas exitosamente!', 'success');
+        });
+
         // Subida de archivos
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
+        const uploadPreview = document.getElementById('uploadPreview');
+        const previewImage = document.getElementById('previewImage');
+        const quickTitle = document.getElementById('quickTitle');
+        const quickDescription = document.getElementById('quickDescription');
 
         uploadArea.addEventListener('click', () => fileInput.click());
 
@@ -612,14 +1166,72 @@
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Aquí podrías subir la imagen a un servidor
-                    // Por ahora, usamos la URL local
-                    showStatus('Imagen cargada: ' + file.name, 'success');
+                    // Mostrar la imagen seleccionada
+                    previewImage.src = e.target.result;
+                    uploadPreview.style.display = 'block';
+                    
+                    // Limpiar campos y enfocar en el título
+                    quickTitle.value = '';
+                    quickDescription.value = '';
+                    quickTitle.focus();
+                    
+                    // Ocultar el área de subida temporalmente
+                    uploadArea.style.display = 'none';
+                    
+                    // Mostrar mensaje de éxito
+                    showStatus('¡Imagen cargada! Ahora puedes escribir la descripción.', 'success');
                 };
                 reader.readAsDataURL(file);
             } else {
                 showStatus('Por favor selecciona una imagen válida', 'error');
             }
+        }
+
+        function saveQuickUpload() {
+            const title = quickTitle.value.trim();
+            const description = quickDescription.value.trim();
+            
+            if (!previewImage.src) {
+                showStatus('Por favor, selecciona una imagen para el cosplay.', 'error');
+                return;
+            }
+            
+            if (!title) {
+                showStatus('Por favor, ingresa un título para el cosplay.', 'error');
+                quickTitle.focus();
+                return;
+            }
+            
+            const newCosplay = {
+                id: Date.now(),
+                title: title,
+                description: description,
+                images: [previewImage.src]
+            };
+            
+            pageData.cosplays.push(newCosplay);
+            saveData();
+            renderCosplayList();
+            
+            // Limpiar y resetear la interfaz
+            uploadPreview.style.display = 'none';
+            uploadArea.style.display = 'block';
+            previewImage.src = '';
+            quickTitle.value = '';
+            quickDescription.value = '';
+            
+            showStatus('¡Cosplay agregado exitosamente!', 'success');
+        }
+
+        function cancelQuickUpload() {
+            // Limpiar y resetear la interfaz
+            uploadPreview.style.display = 'none';
+            uploadArea.style.display = 'block';
+            previewImage.src = '';
+            quickTitle.value = '';
+            quickDescription.value = '';
+            
+            showStatus('Subida cancelada', 'error');
         }
 
         // Editar cosplay
@@ -663,6 +1275,91 @@
                 saveData();
                 renderCosplayList();
                 showStatus('Cosplay eliminado exitosamente!', 'success');
+            }
+        }
+
+        // Editar publicación de blog
+        function editBlogPost(id) {
+            const post = pageData.blog.find(p => p.id === id);
+            if (post) {
+                document.getElementById('blogTitle').value = post.title;
+                document.getElementById('blogDate').value = post.date;
+                document.getElementById('blogExcerpt').value = post.excerpt;
+                document.getElementById('blogTags').value = post.tags.join(', ');
+                
+                // Cambiar el formulario para editar
+                const form = document.getElementById('newBlogForm');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.textContent = '💾 Actualizar Publicación';
+                submitBtn.onclick = function(e) {
+                    e.preventDefault();
+                    
+                    const tags = document.getElementById('blogTags').value
+                        .split(',')
+                        .map(tag => tag.trim())
+                        .filter(tag => tag.length > 0);
+                    
+                    post.title = document.getElementById('blogTitle').value;
+                    post.date = document.getElementById('blogDate').value;
+                    post.excerpt = document.getElementById('blogExcerpt').value;
+                    post.tags = tags;
+                    
+                    saveData();
+                    renderBlogList();
+                    form.reset();
+                    submitBtn.textContent = '📝 Agregar Publicación';
+                    showStatus('Publicación actualizada exitosamente!', 'success');
+                };
+            }
+        }
+
+        // Eliminar publicación de blog
+        function deleteBlogPost(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta publicación?')) {
+                pageData.blog = pageData.blog.filter(p => p.id !== id);
+                saveData();
+                renderBlogList();
+                showStatus('Publicación eliminada exitosamente!', 'success');
+            }
+        }
+
+        // Editar evento
+        function editEvent(id) {
+            const event = pageData.events.find(e => e.id === id);
+            if (event) {
+                document.getElementById('eventTitle').value = event.title;
+                document.getElementById('eventDate').value = event.date;
+                document.getElementById('eventDescription').value = event.description;
+                document.getElementById('eventLocation').value = event.location;
+                
+                // Cambiar el formulario para editar
+                const form = document.getElementById('newEventForm');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.textContent = '💾 Actualizar Evento';
+                submitBtn.onclick = function(e) {
+                    e.preventDefault();
+                    
+                    event.title = document.getElementById('eventTitle').value;
+                    event.date = document.getElementById('eventDate').value;
+                    event.description = document.getElementById('eventDescription').value;
+                    event.location = document.getElementById('eventLocation').value;
+                    
+                    saveData();
+                    renderEventsList();
+                    form.reset();
+                    submitBtn.textContent = '🎪 Agregar Evento';
+                    showStatus('Evento actualizado exitosamente!', 'success');
+                };
+            }
+        }
+
+        // Eliminar evento
+        function deleteEvent(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+                pageData.events = pageData.events.filter(e => e.id !== id);
+                saveData();
+                renderEventsList();
+                showStatus('Evento eliminado exitosamente!', 'success');
             }
         }
 
@@ -720,6 +1417,74 @@
             input.click();
         }
 
+        // Exportar imágenes locales (si las hay)
+        function exportLocalImages() {
+            const images = [];
+            pageData.cosplays.forEach(cosplay => {
+                cosplay.images.forEach((img, index) => {
+                    if (img.startsWith('data:image/')) { // Verifica si es una URL de datos
+                        const extension = img.split(';')[0].split('/')[1] || 'jpg';
+                        images.push({
+                            cosplayId: cosplay.id,
+                            cosplayTitle: cosplay.title,
+                            imageIndex: index,
+                            name: `cosplay_${cosplay.id}_${index}.${extension}`,
+                            data: img
+                        });
+                    }
+                });
+            });
+
+            if (images.length === 0) {
+                showStatus('No hay imágenes locales para exportar.', 'info');
+                return;
+            }
+
+            // Crear un archivo ZIP con todas las imágenes
+            if (typeof JSZip !== 'undefined') {
+                const zip = new JSZip();
+                
+                images.forEach(img => {
+                    // Convertir base64 a blob
+                    const byteCharacters = atob(img.data.split(',')[1]);
+                    const byteNumbers = new Array(byteCharacters.length);
+                    for (let i = 0; i < byteCharacters.length; i++) {
+                        byteNumbers[i] = byteCharacters.charCodeAt(i);
+                    }
+                    const byteArray = new Uint8Array(byteNumbers);
+                    
+                    zip.file(img.name, byteArray);
+                });
+                
+                zip.generateAsync({type: 'blob'}).then(function(content) {
+                    const url = URL.createObjectURL(content);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'kiji-cosplay-images.zip';
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    showStatus(`¡${images.length} imágenes exportadas exitosamente!`, 'success');
+                });
+            } else {
+                // Fallback: exportar como JSON
+                const dataStr = JSON.stringify(images, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'kiji-local-images.json';
+                link.click();
+                URL.revokeObjectURL(url);
+                showStatus(`¡${images.length} imágenes exportadas como JSON!`, 'success');
+            }
+        }
+
+        // Función para convertir imagen a URL externa
+        function convertToExternalURL(base64Image, service = 'imgur') {
+            // Esta función simula la conversión - en realidad necesitarías usar APIs
+            showStatus('Para convertir a URL externa, sube la imagen manualmente a ' + service, 'info');
+        }
+
         // Mostrar mensajes de estado
         function showStatus(message, type) {
             const statusDiv = document.getElementById('statusMessage');
@@ -735,6 +1500,22 @@
         // Inicializar
         document.addEventListener('DOMContentLoaded', function() {
             loadSavedData();
+            
+            // Agregar evento para guardar con Enter en la descripción
+            quickDescription.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    saveQuickUpload();
+                }
+            });
+            
+            // Agregar evento para guardar con Enter en el título
+            quickTitle.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    quickDescription.focus();
+                }
+            });
         });
     </script>
 </body>

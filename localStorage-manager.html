@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Gestor de Almacenamiento Local</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #fff;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b3d 25%, #4a1b3d 50%, #6b1b3d 75%, #8b1b3d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #ff0000;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff0000, #800080);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .data-container {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .data-item {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .data-key {
+            font-size: 1.2rem;
+            color: #ff0000;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .data-value {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .no-data {
+            text-align: center;
+            color: #ccc;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.9);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: #ff0000;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff0000;
+        }
+
+        .json-editor {
+            width: 100%;
+            min-height: 300px;
+            padding: 15px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+
+        .json-editor:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .data-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🔧 Gestor de Almacenamiento Local</h1>
+            <p class="subtitle">Visualiza, edita y gestiona los datos almacenados en tu navegador</p>
+        </header>
+
+        <!-- Estadísticas -->
+        <div class="stats" id="stats">
+            <!-- Las estadísticas se cargarán dinámicamente -->
+        </div>
+
+        <!-- Controles -->
+        <div class="controls">
+            <button class="btn btn-primary" onclick="refreshData()">🔄 Actualizar</button>
+            <button class="btn btn-secondary" onclick="exportAllData()">📤 Exportar Todo</button>
+            <button class="btn btn-secondary" onclick="importData()">📥 Importar</button>
+            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Limpiar Todo</button>
+            <button class="btn btn-success" onclick="showAddKeyModal()">➕ Agregar Clave</button>
+        </div>
+
+        <!-- Buscador -->
+        <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar claves..." onkeyup="filterData()">
+
+        <!-- Contenedor de datos -->
+        <div class="data-container" id="dataContainer">
+            <!-- Los datos se cargarán dinámicamente -->
+        </div>
+    </div>
+
+    <!-- Modal para editar/agregar datos -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Editar Datos</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="form-group">
+                <label style="color: #fff; margin-bottom: 10px; display: block;">Clave:</label>
+                <input type="text" id="editKey" class="search-box" style="margin-bottom: 15px;">
+            </div>
+            <div class="form-group">
+                <label style="color: #fff; margin-bottom: 10px; display: block;">Valor (JSON):</label>
+                <textarea id="editValue" class="json-editor" placeholder='{"ejemplo": "valor"}'></textarea>
+            </div>
+            <div style="margin-top: 20px; text-align: right;">
+                <button class="btn btn-secondary" onclick="closeModal()">❌ Cancelar</button>
+                <button class="btn btn-primary" onclick="saveEdit()">💾 Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allData = {};
+        let filteredData = {};
+
+        // Cargar todos los datos del localStorage
+        function loadAllData() {
+            allData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                try {
+                    const value = localStorage.getItem(key);
+                    // Intentar parsear como JSON, si falla usar como string
+                    let parsedValue;
+                    try {
+                        parsedValue = JSON.parse(value);
+                    } catch {
+                        parsedValue = value;
+                    }
+                    allData[key] = parsedValue;
+                } catch (error) {
+                    console.error(`Error loading key ${key}:`, error);
+                }
+            }
+            filteredData = { ...allData };
+            updateStats();
+            renderData();
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+            const statsContainer = document.getElementById('stats');
+            const totalKeys = Object.keys(allData).length;
+            const totalSize = new Blob([JSON.stringify(allData)]).size;
+            const usedSpace = (totalSize / 1024).toFixed(2);
+            const maxSpace = 5120; // 5MB aproximado
+            const usagePercent = ((totalSize / (maxSpace * 1024)) * 100).toFixed(1);
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${totalKeys}</div>
+                    <div class="stat-label">Claves Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${usedSpace} KB</div>
+                    <div class="stat-label">Espacio Usado</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${usagePercent}%</div>
+                    <div class="stat-label">Uso del Límite</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${Object.keys(filteredData).length}</div>
+                    <div class="stat-label">Claves Filtradas</div>
+                </div>
+            `;
+        }
+
+        // Renderizar datos
+        function renderData() {
+            const container = document.getElementById('dataContainer');
+            
+            if (Object.keys(filteredData).length === 0) {
+                container.innerHTML = '<div class="no-data">No se encontraron datos en el almacenamiento local</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            Object.entries(filteredData).forEach(([key, value]) => {
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                
+                const valueStr = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value);
+                const valueType = typeof value;
+                
+                item.innerHTML = `
+                    <div class="data-key">${key} <span style="color: #888; font-size: 0.8rem;">(${valueType})</span></div>
+                    <div class="data-value">${escapeHtml(valueStr)}</div>
+                    <div class="data-actions">
+                        <button class="btn btn-secondary" onclick="editKey('${key}')">✏️ Editar</button>
+                        <button class="btn btn-secondary" onclick="copyValue('${key}')">📋 Copiar</button>
+                        <button class="btn btn-danger" onclick="deleteKey('${key}')">🗑️ Eliminar</button>
+                    </div>
+                `;
+                
+                container.appendChild(item);
+            });
+        }
+
+        // Filtrar datos
+        function filterData() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            if (!searchTerm) {
+                filteredData = { ...allData };
+            } else {
+                filteredData = {};
+                Object.entries(allData).forEach(([key, value]) => {
+                    if (key.toLowerCase().includes(searchTerm) || 
+                        JSON.stringify(value).toLowerCase().includes(searchTerm)) {
+                        filteredData[key] = value;
+                    }
+                });
+            }
+            
+            updateStats();
+            renderData();
+        }
+
+        // Escapar HTML para mostrar datos de forma segura
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Copiar valor al portapapeles
+        function copyValue(key) {
+            const value = allData[key];
+            const valueStr = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value);
+            
+            navigator.clipboard.writeText(valueStr).then(() => {
+                showNotification(`Valor de "${key}" copiado al portapapeles`, 'success');
+            }).catch(() => {
+                showNotification('Error al copiar al portapapeles', 'error');
+            });
+        }
+
+        // Editar clave
+        function editKey(key) {
+            const value = allData[key];
+            const valueStr = typeof value === 'object' ? JSON.stringify(value, null, 2) : String(value);
+            
+            document.getElementById('modalTitle').textContent = 'Editar Datos';
+            document.getElementById('editKey').value = key;
+            document.getElementById('editValue').value = valueStr;
+            document.getElementById('editKey').readOnly = true;
+            
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // Mostrar modal para agregar clave
+        function showAddKeyModal() {
+            document.getElementById('modalTitle').textContent = 'Agregar Nueva Clave';
+            document.getElementById('editKey').value = '';
+            document.getElementById('editValue').value = '';
+            document.getElementById('editKey').readOnly = false;
+            
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Guardar edición
+        function saveEdit() {
+            const key = document.getElementById('editKey').value.trim();
+            const valueStr = document.getElementById('editValue').value.trim();
+            
+            if (!key) {
+                showNotification('La clave no puede estar vacía', 'error');
+                return;
+            }
+            
+            try {
+                let value;
+                // Intentar parsear como JSON
+                try {
+                    value = JSON.parse(valueStr);
+                } catch {
+                    // Si no es JSON válido, usar como string
+                    value = valueStr;
+                }
+                
+                localStorage.setItem(key, JSON.stringify(value));
+                showNotification(`Clave "${key}" guardada exitosamente`, 'success');
+                
+                closeModal();
+                refreshData();
+            } catch (error) {
+                showNotification('Error al guardar los datos', 'error');
+            }
+        }
+
+        // Eliminar clave
+        function deleteKey(key) {
+            if (confirm(`¿Estás seguro de que quieres eliminar la clave "${key}"?`)) {
+                localStorage.removeItem(key);
+                showNotification(`Clave "${key}" eliminada`, 'success');
+                refreshData();
+            }
+        }
+
+        // Exportar todos los datos
+        function exportAllData() {
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `localStorage-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            showNotification('Datos exportados exitosamente', 'success');
+        }
+
+        // Importar datos
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        
+                        if (confirm(`¿Estás seguro de que quieres importar ${Object.keys(importedData).length} claves? Esto sobrescribirá las claves existentes.`)) {
+                            Object.entries(importedData).forEach(([key, value]) => {
+                                localStorage.setItem(key, JSON.stringify(value));
+                            });
+                            
+                            showNotification('Datos importados exitosamente', 'success');
+                            refreshData();
+                        }
+                    } catch (error) {
+                        showNotification('Error al importar datos: archivo JSON inválido', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // Limpiar todos los datos
+        function clearAllData() {
+            if (confirm('¿Estás seguro de que quieres eliminar TODOS los datos del almacenamiento local? Esta acción no se puede deshacer.')) {
+                localStorage.clear();
+                showNotification('Todos los datos han sido eliminados', 'success');
+                refreshData();
+            }
+        }
+
+        // Actualizar datos
+        function refreshData() {
+            loadAllData();
+        }
+
+        // Mostrar notificación
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 10px;
+                color: white;
+                font-weight: bold;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                background: ${type === 'success' ? '#28a745' : '#dc3545'};
+                border: 1px solid ${type === 'success' ? '#1e7e34' : '#c82333'};
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllData();
+        });
+
+        // Agregar estilos de animación
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

@@ -803,8 +803,9 @@
                 <button class="btn btn-secondary btn-large" onclick="previewChanges()">👁️ Vista Previa</button>
                 <button class="btn btn-secondary btn-large" onclick="exportData()">📤 Exportar Datos</button>
                 <button class="btn btn-secondary btn-large" onclick="importData()">📥 Importar Datos</button>
+                <button class="btn btn-secondary btn-large" onclick="downloadLocalStorageRAR()">📦 Descargar RAR Local</button>
                 <a href="kiji-yurei-cosplay.html" class="btn btn-secondary btn-large" target="_blank">🌐 Ver Página Pública</a>
-            <button onclick="syncWithGitHub()" class="btn btn-primary btn-large">🔄 Sincronizar con GitHub</button>
+                <button onclick="syncWithGitHub()" class="btn btn-primary btn-large">🔄 Sincronizar con GitHub</button>
             </div>
         </section>
 
@@ -1484,6 +1485,84 @@
         function convertToExternalURL(base64Image, service = 'imgur') {
             // Esta función simula la conversión - en realidad necesitarías usar APIs
             showStatus('Para convertir a URL externa, sube la imagen manualmente a ' + service, 'info');
+        }
+
+        // Descargar RAR del almacenamiento local
+        function downloadLocalStorageRAR() {
+            try {
+                // Obtener todos los datos del localStorage
+                const allData = {};
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key) {
+                        allData[key] = localStorage.getItem(key);
+                    }
+                }
+
+                if (Object.keys(allData).length === 0) {
+                    showStatus('No hay datos en el almacenamiento local.', 'info');
+                    return;
+                }
+
+                // Crear un archivo ZIP con todos los datos del localStorage
+                if (typeof JSZip !== 'undefined') {
+                    const zip = new JSZip();
+                    
+                    // Agregar el archivo principal con todos los datos
+                    zip.file('localStorage-backup.json', JSON.stringify(allData, null, 2));
+                    
+                    // Agregar archivos separados para cada clave
+                    Object.keys(allData).forEach(key => {
+                        try {
+                            // Intentar parsear como JSON para formatearlo
+                            const parsed = JSON.parse(allData[key]);
+                            zip.file(`${key}.json`, JSON.stringify(parsed, null, 2));
+                        } catch {
+                            // Si no es JSON, guardar como texto plano
+                            zip.file(`${key}.txt`, allData[key]);
+                        }
+                    });
+
+                    // Agregar un archivo README con información
+                    const readme = `# Backup del Almacenamiento Local - Kiji Yurei Cosplay
+
+Fecha de backup: ${new Date().toLocaleString('es-ES')}
+Archivos incluidos:
+${Object.keys(allData).map(key => `- ${key}`).join('\n')}
+
+Para restaurar estos datos:
+1. Abre el panel de administración
+2. Usa la función "Importar Datos" con el archivo localStorage-backup.json
+3. O copia manualmente el contenido de los archivos .json al localStorage
+
+Nota: Este backup incluye todos los datos almacenados localmente en tu navegador.`;
+                    
+                    zip.file('README.txt', readme);
+                    
+                    zip.generateAsync({type: 'blob'}).then(function(content) {
+                        const url = URL.createObjectURL(content);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `kiji-localStorage-backup-${new Date().toISOString().split('T')[0]}.zip`;
+                        link.click();
+                        URL.revokeObjectURL(url);
+                        showStatus(`¡Backup del localStorage creado exitosamente! (${Object.keys(allData).length} archivos)`, 'success');
+                    });
+                } else {
+                    // Fallback: exportar como JSON
+                    const dataStr = JSON.stringify(allData, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    const url = URL.createObjectURL(dataBlob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `kiji-localStorage-backup-${new Date().toISOString().split('T')[0]}.json`;
+                    link.click();
+                    URL.revokeObjectURL(url);
+                    showStatus('Backup del localStorage exportado como JSON (JSZip no disponible)', 'warning');
+                }
+            } catch (error) {
+                showStatus('Error al crear el backup: ' + error.message, 'error');
+            }
         }
 
         // Mostrar mensajes de estado

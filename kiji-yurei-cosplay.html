@@ -652,200 +652,7 @@
             color: #ff0000;
         }
 
-        /* Sección de Blog/Noticias */
-        .blog-section {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
 
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .blog-card {
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 0, 0, 0.15);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
-        }
-
-        .blog-date {
-            color: #ff0000;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .blog-title {
-            font-size: 1.4rem;
-            color: #fff;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .blog-excerpt {
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .blog-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .blog-tag {
-            background: rgba(255, 0, 0, 0.3);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-        }
-
-        /* Sección de Eventos */
-        .events-section {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .events-timeline {
-            margin-top: 40px;
-            position: relative;
-        }
-
-        .events-timeline::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #ff0000, #800080);
-        }
-
-        .event-item {
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            margin-left: 50px;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .event-item::before {
-            content: '';
-            position: absolute;
-            left: -35px;
-            top: 25px;
-            width: 12px;
-            height: 12px;
-            background: #ff0000;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .event-item:hover {
-            transform: translateX(5px);
-            background: rgba(255, 0, 0, 0.15);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-        }
-
-        .event-date {
-            color: #ff0000;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .event-title {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .event-description {
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .event-location {
-            color: #ccc;
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        /* Sección de Estadísticas */
-        .stats-section {
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px;
-            margin-bottom: 50px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .stat-item {
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 0, 0, 0.15);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
-        }
-
-        .stat-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            color: #ff0000;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: #e0e0e0;
-            font-size: 1.1rem;
-        }
 
         /* Sección de redes sociales */
         .social-section {
@@ -914,6 +721,29 @@
         .footer-hearts {
             font-size: 2rem;
             margin: 20px 0;
+        }
+
+        .signature-message {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .signature-text {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 107, 107, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8), 0 0 30px rgba(255, 107, 107, 0.6); }
         }
 
         /* Responsive */
@@ -1030,29 +860,7 @@
             </div>
         </section>
 
-        <!-- Sección de Blog/Noticias -->
-        <section id="blog" class="blog-section fade-in">
-            <h2 class="section-title">📝 Blog & Noticias</h2>
-            <div class="blog-grid" id="blogGrid">
-                <!-- Las noticias se cargarán dinámicamente -->
-            </div>
-        </section>
 
-        <!-- Sección de Eventos -->
-        <section id="events" class="events-section fade-in">
-            <h2 class="section-title">🎪 Próximos Eventos</h2>
-            <div class="events-timeline" id="eventsTimeline">
-                <!-- Los eventos se cargarán dinámicamente -->
-            </div>
-        </section>
-
-        <!-- Sección de Estadísticas -->
-        <section class="stats-section fade-in">
-            <h2 class="section-title">📊 Mis Estadísticas</h2>
-            <div class="stats-container" id="statsContainer">
-                <!-- Las estadísticas se cargarán dinámicamente -->
-            </div>
-        </section>
 
         <!-- Sección de redes sociales -->
         <section class="social-section fade-in">
@@ -1067,6 +875,9 @@
             <p class="footer-text">🌟 Gracias por visitar mi página de cosplay 🌟</p>
             <div class="footer-hearts">💖 💕 💗</div>
             <p class="footer-text">¡Sígueme para más contenido creativo!</p>
+            <div class="signature-message">
+                <p class="signature-text">Soy Kiji Yurei y recuerda... lo escuchaste primero de mí</p>
+            </div>
         </footer>
     </div>
 
@@ -1431,44 +1242,6 @@
                         ]
                     }
                 ],
-                blog: [
-                    {
-                        id: 1,
-                        date: "2024-01-15",
-                        title: "Mi Primer Cosplay Completo",
-                        excerpt: "Comparto mi experiencia creando mi primer cosplay desde cero, los desafíos y las alegrías del proceso...",
-                        tags: ["Primer Cosplay", "Experiencia", "Tutorial"]
-                    },
-                    {
-                        id: 2,
-                        date: "2024-01-10",
-                        title: "Consejos para Principiantes",
-                        excerpt: "Algunos consejos útiles que he aprendido en mi viaje como cosplayer amateur...",
-                        tags: ["Consejos", "Principiantes", "Guía"]
-                    }
-                ],
-                events: [
-                    {
-                        id: 1,
-                        date: "2024-02-15",
-                        title: "Convención Anime Local",
-                        description: "Participaré en la convención local de anime con mi nuevo cosplay. ¡Ven a saludarme!",
-                        location: "Centro de Convenciones, Ciudad"
-                    },
-                    {
-                        id: 2,
-                        date: "2024-03-20",
-                        title: "Concurso de Cosplay",
-                        description: "Mi primera participación en un concurso oficial de cosplay. ¡Deseenme suerte!",
-                        location: "Teatro Municipal"
-                    }
-                ],
-                stats: {
-                    cosplays: 15,
-                    followers: 2500,
-                    events: 8,
-                    experience: 2
-                },
                 social: {
                     instagram: "https://instagram.com/kiji_yurei",
                     tiktok: "https://tiktok.com/@kiji_yurei",
@@ -1489,9 +1262,6 @@
             
             // Renderizar todo el contenido
             renderCosplays(exampleData.cosplays);
-            renderBlogPosts(exampleData.blog);
-            renderEvents(exampleData.events);
-            renderStats(exampleData.stats);
             renderSocialLinks(exampleData.social);
         }
 
@@ -1560,117 +1330,7 @@
             }
         }
 
-        // Renderizar blog dinámicamente
-        function renderBlogPosts(blogPosts) {
-            const grid = document.getElementById('blogGrid');
-            grid.innerHTML = '';
-            
-            if (!blogPosts || blogPosts.length === 0) {
-                grid.innerHTML = `
-                    <div style="text-align: center; padding: 50px; color: rgba(255, 255, 255, 0.7); grid-column: 1 / -1;">
-                        <div style="font-size: 3rem; margin-bottom: 20px;">📝</div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">No hay publicaciones aún</h3>
-                        <p style="font-size: 1.1rem;">¡Pronto compartiré mis experiencias y consejos!</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            blogPosts.forEach(post => {
-                const card = document.createElement('div');
-                card.className = 'blog-card';
-                card.onclick = () => openBlogPost(post);
-                
-                const formattedDate = new Date(post.date).toLocaleDateString('es-ES', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                const tagsHTML = post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('');
-                
-                card.innerHTML = `
-                    <div class="blog-date">${formattedDate}</div>
-                    <h3 class="blog-title">${post.title}</h3>
-                    <p class="blog-excerpt">${post.excerpt}</p>
-                    <div class="blog-tags">${tagsHTML}</div>
-                `;
-                
-                grid.appendChild(card);
-            });
-        }
 
-        // Renderizar eventos dinámicamente
-        function renderEvents(events) {
-            const timeline = document.getElementById('eventsTimeline');
-            timeline.innerHTML = '';
-            
-            if (!events || events.length === 0) {
-                timeline.innerHTML = `
-                    <div style="text-align: center; padding: 50px; color: rgba(255, 255, 255, 0.7);">
-                        <div style="font-size: 3rem; margin-bottom: 20px;">🎪</div>
-                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">No hay eventos próximos</h3>
-                        <p style="font-size: 1.1rem;">¡Mantente atento a futuros eventos!</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Ordenar eventos por fecha
-            const sortedEvents = events.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            sortedEvents.forEach(event => {
-                const item = document.createElement('div');
-                item.className = 'event-item';
-                
-                const formattedDate = new Date(event.date).toLocaleDateString('es-ES', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                
-                item.innerHTML = `
-                    <div class="event-date">${formattedDate}</div>
-                    <h3 class="event-title">${event.title}</h3>
-                    <p class="event-description">${event.description}</p>
-                    <div class="event-location">📍 ${event.location}</div>
-                `;
-                
-                timeline.appendChild(item);
-            });
-        }
-
-        // Renderizar estadísticas dinámicamente
-        function renderStats(stats) {
-            const container = document.getElementById('statsContainer');
-            container.innerHTML = '';
-            
-            const statsData = [
-                { icon: '🎭', number: stats.cosplays || 0, label: 'Cosplays' },
-                { icon: '👥', number: stats.followers || 0, label: 'Seguidores' },
-                { icon: '🎪', number: stats.events || 0, label: 'Eventos' },
-                { icon: '⭐', number: stats.experience || 0, label: 'Años de Experiencia' }
-            ];
-            
-            statsData.forEach(stat => {
-                const item = document.createElement('div');
-                item.className = 'stat-item';
-                
-                item.innerHTML = `
-                    <div class="stat-icon">${stat.icon}</div>
-                    <div class="stat-number">${stat.number}</div>
-                    <div class="stat-label">${stat.label}</div>
-                `;
-                
-                container.appendChild(item);
-            });
-        }
-
-        // Abrir publicación del blog
-        function openBlogPost(post) {
-            // Por ahora solo muestra un alert, pero puedes expandir esto
-            alert(`📝 ${post.title}\n\n${post.excerpt}\n\nFecha: ${new Date(post.date).toLocaleDateString('es-ES')}`);
-        }
 
         // Renderizar redes sociales dinámicamente
         function renderSocialLinks(social) {

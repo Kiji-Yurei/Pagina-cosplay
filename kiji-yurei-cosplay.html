@@ -501,6 +501,14 @@
             cursor: pointer;
             position: relative;
             border: 2px solid rgba(255, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .cosplay-card.animate-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .cosplay-card:hover {
@@ -1203,8 +1211,8 @@
                         title: "Sung Jin-Woo – Solo Leveling",
                         description: "Este es uno de mis cosplays favoritos, y también el que más me gusta cómo me queda. Este cosplay se ha convertido en uno de mis favoritos por muchas razones. Me encanta cómo me queda, siento que me conecta totalmente con la energía y presencia del personaje.",
                         images: [
-                            "https://raw.githubusercontent.com/Kiji-Yurei/Pagina-cosplay/main/img/Sung%20Jin-Woo%20%E2%80%93%20Solo%20Leveling%202.jpg",
                             "https://raw.githubusercontent.com/Kiji-Yurei/Pagina-cosplay/main/img/Sung%20Jin-Woo%20%E2%80%93%20Solo%20Leveling%201.jpg",
+                            "https://raw.githubusercontent.com/Kiji-Yurei/Pagina-cosplay/main/img/Sung%20Jin-Woo%20%E2%80%93%20Solo%20Leveling%202.jpg",
                             "https://raw.githubusercontent.com/Kiji-Yurei/Pagina-cosplay/main/img/Sung%20Jin-Woo%20%E2%80%93%20Solo%20Leveling%203.jpg"
                         ]
                     },
@@ -1325,6 +1333,9 @@
                 `;
                 gridView.innerHTML = noCosplaysMessage;
                 carouselTrack.innerHTML = noCosplaysMessage;
+            } else {
+                // Animar las tarjetas después de renderizar
+                setTimeout(animateCosplayCards, 100);
             }
         }
 
@@ -1400,6 +1411,31 @@
         }
 
         window.addEventListener('scroll', handleScroll);
+
+        // Función para animar las tarjetas de cosplay al hacer scroll
+        function animateCosplayCards() {
+            const cosplayCards = document.querySelectorAll('.cosplay-card');
+            
+            cosplayCards.forEach((card, index) => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardVisible = cardTop < window.innerHeight - 100;
+                
+                if (cardVisible && !card.classList.contains('animate-in')) {
+                    // Agregar delay escalonado para efecto cascada
+                    setTimeout(() => {
+                        card.classList.add('animate-in');
+                    }, index * 150); // 150ms de delay entre cada tarjeta
+                }
+            });
+        }
+
+        // Agregar event listener para la animación de scroll
+        window.addEventListener('scroll', animateCosplayCards);
+        
+        // Ejecutar una vez al cargar para las tarjetas ya visibles
+        window.addEventListener('load', () => {
+            setTimeout(animateCosplayCards, 500);
+        });
 
         // Efecto de escritura para el título
         const mainTitle = document.querySelector('.main-title');
